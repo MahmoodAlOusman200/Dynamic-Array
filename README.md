@@ -1,46 +1,50 @@
-# C++ Generic Doubly Linked List (`clsDblLinkedList`)
+# C++ Generic Dynamic Array Implementation (`clsDynamicArray`)
 
-A flexible, generic implementation of a **Doubly Linked List** data structure in C++ using templates. This implementation provides a wide range of operations for managing elements dynamically and efficiently.
+A custom, template-based **Dynamic Array** class implementation in C++. This library provides efficient dynamic memory reallocation, allowing arrays to grow or shrink dynamically at runtime while supporting comprehensive array manipulation methods.
 
 ---
 
 ## 🚀 Features
 
-* **Generic Type Support**: Built using C++ Templates (`template <class T>`) to support any data type.
-* **Full CRUD Operations**:
-  * **Insert**: At beginning, at end, or after a specific node/index.
-  * **Delete**: First node, last node, or a specific node reference.
-  * **Update**: Modify elements by index.
-* **Utility & Traversal**:
-  * Print list elements (`PrintList`).
-  * Search nodes by value (`FindNode`).
-  * Retrieve node or item by index (`GetNode`, `GetItem`).
-  * Reverse the list order (`Reverse`).
-  * Clear all nodes (`Clear`).
-  * Check size and emptiness (`Size`, `IsEmpty`).
+* **Generic Type Support**: Uses C++ Templates (`template <class T>`) to hold any data type.
+* **Dynamic Resizing**: Automatically reallocates internal storage using dynamic memory management (`Resize`).
+* **Flexible Insertion**: Insert elements at the beginning, end, or specific positions (before/after index).
+* **Deletion Options**: Remove items by index, value, or clear the entire array.
+* **Search & Update**: Find item indices, update existing values, and safely access elements.
 
 ---
 
 ## 🛠️ Public Methods Summary
 
+### Array Management & Access
 | Method | Description |
 | :--- | :--- |
-| `InsertAtBeginning(T Value)` | Inserts a new node at the start of the list. |
-| `InsertAtEnd(T Value)` | Appends a new node to the end of the list. |
-| `InsertAfter(Node* NodeToInsertAfter, T Value)` | Inserts a new value after a given node pointer. |
-| `InsertAfter(int index, T Value)` | Inserts a new value after a specified index. |
-| `DeleteNode(Node*& NodeToDelete)` | Deletes a target node from the list. |
-| `DeleteFirstNode()` | Removes the first node. |
-| `DeleteLastNode()` | Removes the last node. |
-| `FindNode(T Value)` | Finds and returns a pointer to the node with the specified value. |
-| `GetNode(int index)` | Returns a pointer to the node at the given index. |
-| `GetItem(int index)` | Returns the value of the item at the given index. |
-| `UpdateItem(int index, T NewValue)` | Updates the value at the given index. |
-| `PrintList()` | Displays all items in the list. |
-| `Reverse()` | Reverses the order of nodes in the list. |
-| `Clear()` | Removes all nodes and frees memory. |
-| `Size()` | Returns the total number of nodes in the list. |
-| `IsEmpty()` | Returns `true` if the list is empty, otherwise `false`. |
+| `Size()` | Returns the current number of elements in the array.|
+| `IsEmpty()` | Checks if the array contains no elements.|
+| `Resize(int NewSize)` | Resizes the array dynamically to a new size.|
+| `GetItem(int index)` | Retrieves the item value at the given index.|
+| `SetItem(int index, T Value)` | Sets/updates the value at a specific index.|
+| `PrintList()` | Prints all elements in the array.|
+
+### Insertion Methods
+| Method | Description |
+| :--- | :--- |
+| `InsertAtBegining(T Value)`| Inserts a new element at index.|
+| `InsertAtEnd(T Value)` | Appends a new element to the end of the array.|
+| `InsertAt(int index, T Value)` | Inserts an element at a specific index.|
+| `InsertAfter(int index, T Value)` | Inserts an element immediately after the specified index.|
+| `InsertBefore(int index, T Value)` | Inserts an element immediately before the specified index.|
+
+### Deletion & Search
+| Method | Description |
+| :--- | :--- |
+| `DeleteItemAt(int index)` | Deletes the element at a specific index.|
+| `DeleteFirstItem()` | Removes the first element in the array.|
+| `DeleteLastItem()` | Removes the last element in the array.|
+| `DeleteItem(T Value)` | Searches and deletes the first matching element with the specified value.|
+| `Find(T Value)` | Returns the index of the first occurrence of the specified value (or `-1` if not found).|
+| `Reverse()` | Reverses the order of all elements in the array.|
+| `Clear()` | Empties the array and resets its size.|
 
 ---
 
@@ -48,34 +52,42 @@ A flexible, generic implementation of a **Doubly Linked List** data structure in
 
 ```cpp
 #include <iostream>
-#include "clsDblLinkedList.h"
+#include "clsDynamicArray.h"
 
 using namespace std;
 
 int main() {
-    clsDblLinkedList<int> myLinkedList;
+    clsDynamicArray<int> myArray(3);
 
-    // Insert elements
-    myLinkedList.InsertAtBeginning(10);
-    myLinkedList.InsertAtEnd(20);
-    myLinkedList.InsertAtEnd(30);
+    // Set initial values
+    myArray.SetItem(0, 10);
+    myArray.SetItem(1, 20);
+    myArray.SetItem(2, 30);
 
-    cout << "List contents: ";
-    myLinkedList.PrintList(); // Output: 10 20 30
+    cout << "Array elements: ";
+    myArray.PrintList(); // Output: 10 20 30
 
-    // Reverse list
-    myLinkedList.Reverse();
-    cout << "Reversed list: ";
-    myLinkedList.PrintList(); // Output: 30 20 10
+    // Insert at end and beginning
+    myArray.InsertAtEnd(40);
+    myArray.InsertAtBegining(5);
 
-    // Update item
-    myLinkedList.UpdateItem(0, 50);
-    cout << "After update: ";
-    myLinkedList.PrintList(); // Output: 50 20 10
+    cout << "After insertions: ";
+    myArray.PrintList(); // Output: 5 10 20 30 40
+
+    // Delete item by value
+    myArray.DeleteItem(20);
+
+    cout << "After deleting 20: ";
+    myArray.PrintList(); // Output: 5 10 30 40
+
+    // Reverse array
+    myArray.Reverse();
+    cout << "Reversed array: ";
+    myArray.PrintList(); // Output: 40 30 10 5
 
     return 0;
 }
 
 ⚙️ Requirements
 • ​Language: C++11 or higher
-• ​Compiler: Visual Studio, GCC, Clang, or any standard C++ compiler
+• ​Compiler: Compatible with Visual Studio, GCC, Clang, or any standard C++ compiler
