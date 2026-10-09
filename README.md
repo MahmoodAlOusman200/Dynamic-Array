@@ -88,6 +88,3 @@ int main() {
     return 0;
 }
 
-⚙️ Requirements
-• ​Language: C++11 or higher
-• ​Compiler: Compatible with Visual Studio, GCC, Clang, or any standard C++ compiler
